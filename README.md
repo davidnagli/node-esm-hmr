@@ -5,6 +5,43 @@ A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloadi
 
 Yep... that's right, finally a solution for HMR in Node that works with the native ESM (`"type":"module"` in package.json or `*.mjs` files) :clap: 
 
+## Quick Start
+Install the package:
+```
+npm i --save-dev node-esm-hmr
+```
+
+Create a package.json (if you don't already have one):
+```
+npm init -y
+```
+
+Add `"type":"module"` to your `package.json`
+```json
+{
+  "name": "node-esm-hmr",
+  "version": "1.0.0",
+  "...":"...",
+  
+  "type": "module",
+  
+  "...":"...",
+  "dependencies": {
+    "...":"...",
+  }
+}
+```
+
+Create a file called `foo.js` and add:
+```javascript
+import hmr from '../utils/node-esm-hmr.js';
+
+hmr('./bar.js', '.', module =>{
+  module.default(/*pass in whatever parameters you usually would here*/)
+})
+```
+
+
 ## What are EcmaScript Modules (ESM)?
 
 <details>
@@ -34,13 +71,22 @@ But on on December 10, 2019 with the release of Node.js version 13.2.0, support 
 </details>
 
 ## Why? 🤔
-[WIP]
-* reasoning for hmr on node
-* explain why just using a file watcher + dynamic imports doesn't work
-* it's really small and lightweight anyways, probably the same thing you would have written yourself
+You might be thinking: Why do I even need HMR in node in the first place? Why can't I just use [Nodemon](https://github.com/remy/nodemon) or [Node.js 19's new `--watch` flag](https://dev.to/sabbirsobhani/nodejs-v1900-watch-option-ck7) to just watch my files? 
+
+Well, the answer is simple: in most cases you don't need it. In fact, in some cases HMR can break some things if the module you are Hot Reloading has side effects such as caching.
+
+HMR is really useful on the front-end for seeing the changes you make to a website in real-time, since websites usually have complex states that you want to maintain between changes to the code in order to make it easy to test. Front-ends also typicically need a bundler and transpiler so the build times are pretty long.
+
+However, on the backend, we typically aren't used to using HMR. While developing we usually just refresh the entire app, since there is usually a low cost associated with doing so (pretty fast startup times).
+
+But in the case you are working on something with a long startup (or even build) time or complex states, you might want to use HMR to simplify the development experience of that part of the project. **HMR allows you to only reload individual parts of your app, without touching the rest of your app.**
 
 ## How? 🤠
-This is a super lightweight package that [wip]
+This is a super lightweight package that just uses ESM's dynamic imports `import()` syntax to load your module asyncrounously and on-demand (when the app is launched and when the code is changed). Since ESM imports cache the file, we also invalidate this cache on every reload by passing in an incremented GET parameter to the file path which suprisingly works. 
+
+This entire package is super tiny; it only has a few lines of code to resolve the module from the file path provided relative to the calling file, then dynamically `import()` it, and then pass it back to the callback so you can use it however you want. Since we pass back exactly what we get after calling `import()`, you should have ultimate flexibility to do whatever you want with your imports after they are hot-reloaded (when the callback is called).
+
+We use [Chokidar](https://github.com/paulmillr/chokidar) for file watching since there's no need to re-invent the wheel there.
 
 
 ## Usage Instructions
@@ -103,8 +149,8 @@ Anyways, you should be perfectly fine running this while developing (worse case 
 ## Credits / Prior Art
 This package is 100% inspired by [node-hmr](https://github.com/serhiinkh/node-hmr). I decided to create this package when I first tried using node-hmr and realized that it doesn't work at all for ESM. Initially, I considered sending a PR, but I realized that ESM makes it pretty much nesicarry to rewrite most of it, and they also make it a lot simpler.
 
-This package on it's doesn't really do much on it's own (it's really lightweight), all the file-watching magic is provided by [Chokidar (https://github.com/paulmillr/chokidar) which is an amazing cross-platform file watcher. 
+This package on it's doesn't really do much on it's own (it's really lightweight), all the file-watching magic is provided by [Chokidar](https://github.com/paulmillr/chokidar) which is an amazing cross-platform file watcher. 
 
-And, of course, thank you to [@Jasper De Moor](https://github.com/DeMoorJasper) who first explained to me what HMR was many years back while we were working on contributing to [https://parceljs.org/](Parcel) — the most amazing bundler on the planet. 
+And, of course, thank you to [@Jasper De Moor](https://github.com/DeMoorJasper) who first explained to me what HMR was many years back while we were working on contributing to [Parcel](https://parceljs.org/) — the most amazing bundler on the planet. 
 
-Created and maintained by [David Nagli](https://www.linkedin.com/in/davidnagli/)
+This package is created and actively maintained by [David Nagli](https://www.linkedin.com/in/davidnagli/) and available under the [MIT License](https://github.com/davidnagli/node-esm-hmr/blob/main/LICENSE)
