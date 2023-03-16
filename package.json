@@ -1,0 +1,16 @@
+{
+  "name": "node-esm-hmr",
+  "version": "1.0.0",
+  "description": "HMR for Node that actually works with Node's ESM (type:module in package.json or .mjs files)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Nagli <davidnagli@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "parent-module": "^3.0.0"
+  }
+}
