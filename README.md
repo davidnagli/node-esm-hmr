@@ -1,12 +1,43 @@
-# Node ESM HMR
-HMR for vanilla Node.js that actually works with Node's ESM imports (`"type":"module"` in package.json or `*.mjs` files)
+# Node ESM HMR :rocket:
+A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloading (HMR) native, vanilla, **E**CMA**S**cript **M**odules (ESM).
 
-## Why
-reasoning for hmr on node
-explain why just using a file watcher + dynamic imports doesn't work
-it's really small and lightweight anyways, probably the same thing you would have written yourself
+Yep... that's right, finally a solution for HMR in Node that works with the native ESM (`"type":"module"` in package.json or `*.mjs` files) :clap: 
 
-## How?
+## What are EcmaScript Modules (ESM)?
+
+<details>
+  <summary>EcmaScript Modules (ESM) are the new new way to import modules in JavaScript using the ES6 <code>import</code> syntax. They can be used by adding <code>"type":"module"</code> field in package.json <b><i>or</i></b> by changing the file extension from <code>.js</code> to <code>.mjs</code> 
+  
+(for more information, click here)</summary>
+  The old syntax of using `require()` (called CommonJS imports) is riddled with issues and is pretty much the way-of-the-past these days. 
+
+Ever since ES6 came out in June 2015, developers have been trying to use the new, clean, modern, and most importantly: standard, ESM syntax for module imports:
+```javascript
+// For default imports: 
+import foo from './bar'
+// For named imports:
+import {foo} from './bar'
+```
+Instead of the old CommonJS imports:
+```javascript
+// For default imports: 
+const foo = require('./bar');
+// For named imports:
+const {foo} = require('.bar');
+```
+However, for a very long time, Node.js didn't completely support ESM. So the only way to use it was if you used a bundler like [Webpack](https://webpack.js.org/), [Parcel](https://parceljs.org/), or [Turbopack](https://turbo.build/pack) (which are great, but are complete overkill considering that in most cases you really don't need a bundler outside of the context of a browser) or using a transpiler like [Babel](https://babeljs.io/) (which would just transpile your ESM into CommonJS anyways).
+support for .mjs files
+
+But on on December 10, 2019 with the release of Node.js version 13.2.0, support for ESM was finally stabilized and no longer required the experimental flag. So now, by just adding the `"type":"module"` field in package.json _**or**_ by changing the file extension from `.js` to `.mjs`, anyone can easily use ESM. :grin:
+</details>
+
+## Why? 🤔
+[WIP]
+* reasoning for hmr on node
+* explain why just using a file watcher + dynamic imports doesn't work
+* it's really small and lightweight anyways, probably the same thing you would have written yourself
+
+## How? 🤠
 This is a super lightweight package that [wip]
 
 
@@ -66,3 +97,10 @@ Anyways, you should be perfectly fine running this while developing (worse case 
 
 ## Todo
 - [ ] Create an optional ignore regex argument (really easy, just need to pass it to chokidar)
+
+## Credits / Prior Art
+This package is 100% inspired by [node-hmr](https://github.com/serhiinkh/node-hmr). I decided to create this package when I first tried using node-hmr and realized that it doesn't work at all for ESM. Initially, I considered sending a PR, but I realized that ESM makes it pretty much nesicarry to rewrite most of it, and they also make it a lot simpler.
+
+This package on it's doesn't really do much on it's own (it's really lightweight), all the file-watching magic is provided by [Chokidar (https://github.com/paulmillr/chokidar) which is an amazing cross-platform file watcher. 
+
+And, of course, thank you to [@Jasper De Moor](https://github.com/DeMoorJasper) who first explained to me what HMR was many years back while we were working on contributing to [https://parceljs.org/](Parcel) — the most amazing bundler on the planet. 
