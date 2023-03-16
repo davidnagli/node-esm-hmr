@@ -1,4 +1,6 @@
 # Node ESM HMR :rocket:
+<img src="https://img.shields.io/badge/Licence-MIT-green"/> <img src="https://img.shields.io/github/issues-raw/davidnagli/node-esm-hmr"/>
+
 A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloading (HMR) native, vanilla, **E**CMA**S**cript **M**odules (ESM).
 
 Yep... that's right, finally a solution for HMR in Node that works with the native ESM (`"type":"module"` in package.json or `*.mjs` files) :clap: 
@@ -104,3 +106,5 @@ This package is 100% inspired by [node-hmr](https://github.com/serhiinkh/node-hm
 This package on it's doesn't really do much on it's own (it's really lightweight), all the file-watching magic is provided by [Chokidar (https://github.com/paulmillr/chokidar) which is an amazing cross-platform file watcher. 
 
 And, of course, thank you to [@Jasper De Moor](https://github.com/DeMoorJasper) who first explained to me what HMR was many years back while we were working on contributing to [https://parceljs.org/](Parcel) — the most amazing bundler on the planet. 
+
+Created and maintained by [David Nagli](https://www.linkedin.com/in/davidnagli/)
