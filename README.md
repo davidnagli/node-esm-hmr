@@ -1,5 +1,5 @@
 # Node ESM HMR :fire: :rocket:
-<img src="https://img.shields.io/badge/Licence-MIT-green"/> <img src="https://img.shields.io/github/issues-raw/davidnagli/node-esm-hmr"/>
+<img src="https://img.shields.io/badge/Licence-MIT-green"/> <img src="https://img.shields.io/github/issues-raw/davidnagli/node-esm-hmr"/> <img src="https://img.shields.io/github/last-commit/davidnagli/node-esm-hmr"/> <img src="https://img.shields.io/bundlephobia/min/node-esm-hmr"/>
 
 A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloading (HMR) native, vanilla, **E**CMA**S**cript **M**odules (ESM).
 
