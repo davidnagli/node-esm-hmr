@@ -3,9 +3,13 @@
   "version": "1.0.1",
   "description": "HMR for Node that actually works with Node's ESM (type:module in package.json or .mjs files)",
   "main": "index.js",
+  "engines": {
+    "node": ">=13.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "github:davidnagli/node-esm-hmr",
   "keywords": [
     "hmr",
     "hot",
