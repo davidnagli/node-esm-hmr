@@ -5,43 +5,6 @@ A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloadi
 
 Yep... that's right, finally a solution for HMR in Node that works with the native ESM (`"type":"module"` in package.json or `*.mjs` files) :clap: 
 
-## Quick Start
-Install the package:
-```
-npm i --save-dev node-esm-hmr
-```
-
-Create a package.json (if you don't already have one):
-```
-npm init -y
-```
-
-Add `"type":"module"` to your `package.json`
-```json
-{
-  "name": "node-esm-hmr",
-  "version": "1.0.0",
-  "...":"...",
-  
-  "type": "module",
-  
-  "...":"...",
-  "dependencies": {
-    "...":"...",
-  }
-}
-```
-
-Create a file called `foo.js` and add:
-```javascript
-import hmr from '../utils/node-esm-hmr.js';
-
-hmr('./bar.js', '.', module =>{
-  module.default(/*pass in whatever parameters you usually would here*/)
-})
-```
-
-
 ## What are EcmaScript Modules (ESM)?
 
 <details>
@@ -89,9 +52,9 @@ This entire package is super tiny; it only has a few lines of code to resolve th
 We use [Chokidar](https://github.com/paulmillr/chokidar) for file watching since there's no need to re-invent the wheel there.
 
 
-## Usage Instructions
+## Usage Instructions :page_with_curl:
 
-### Installation / Setup 
+### Installation / Setup :wrench:
 Install the package:
 ```
 npm i --save-dev node-esm-hmr
@@ -102,7 +65,7 @@ Then, in whatever file you want to run the HMR from, import this package as `hmr
 import hmr from '../utils/node-esm-hmr.js';
 ```
 
-### Usage
+### Usage :running:
 Now if you used to use the default export (your import statement used to be `import foo from './bar'`):
 ```javascript
 hmr('./bar.js', '.', module =>{
@@ -119,7 +82,7 @@ hmr('./bar.js', '.', module =>{
 
 
 
-## API
+## API ⚙️
 ```javascript
 hmr(modulePath: String, watchPath: string | string[], callback: fn (module: ModuleNamespaceObject) => void)
 
@@ -137,6 +100,62 @@ hmr(modulePath: String, watchPath: string | string[], callback: fn (module: Modu
         * This sounds confusing, but it's not. A Module Namespace Object is just an object with all of the exports of the module that you imported as methods of that object. The default export of the module is also there as a method called `.default()`. 
         * This is this way directly from NodeJS, not from this package; we just spit out what the ESM dynamic import gives us
 
+## Quick Start ⚡
+Install the package:
+```
+npm i --save-dev node-esm-hmr
+```
+
+Create a package.json (if you don't already have one):
+```
+npm init -y
+```
+
+Add `"type":"module"` to your `package.json`
+```json
+{
+  "name": "node-esm-hmr",
+  "version": "1.0.0",
+  "...":"...",
+  
+  "type": "module",
+  
+  "...":"...",
+  "dependencies": {
+    "...":"...",
+  }
+}
+```
+
+Create a file called `foo.js` and add:
+```javascript
+import hmr from '../utils/node-esm-hmr.js';
+
+hmr('./bar.js', '.', module => {
+  module.default('this is a parameter that will be passed on to the default export of bar.js')
+})
+```
+Now make a file called bar.js:
+```javascript
+export default function(someArgument) {
+  console.log('Hello world! ', someArgument)
+}
+```
+Then run it with
+```
+node foo.js
+```
+It should print out: 
+```
+Hello world! this is a parameter that will be passed on to the default export of bar.js
+```
+Now go back in and edit `bar.js`. Let's add a few more exclamation marks:
+```javascript
+export default function(someArgument) {
+  console.log('Hello world!!!!!!!!!! ', someArgument)
+}
+```
+Once you click save, you should see the change in the terminal! :tada:
 
 ## Disclaimer 
 Do not use this in production!! This package is intended to help you while developing in your dev enviroment. In order to get dynamic imports work multiple times (which is the whole basis of how this package works) I had to use a dirty strategy for invalidating node's import cache. This hasn't broken anything from what I can tell, but it also might break at scale and might cause other issues in the long run (like a gradual memory leak and eventual crash if you keep the process running for way too long). 
