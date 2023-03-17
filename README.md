@@ -1,4 +1,4 @@
-# Node ESM HMR :rocket:
+# Node ESM HMR :fire: :rocket:
 <img src="https://img.shields.io/badge/Licence-MIT-green"/> <img src="https://img.shields.io/github/issues-raw/davidnagli/node-esm-hmr"/>
 
 A Super Lightweight, and easy-to-use, package for **H**ot **M**odule **R**eloading (HMR) native, vanilla, **E**CMA**S**cript **M**odules (ESM).
@@ -100,35 +100,34 @@ hmr(modulePath: String, watchPath: string | string[], callback: fn (module: Modu
         * This sounds confusing, but it's not. A Module Namespace Object is just an object with all of the exports of the module that you imported as methods of that object. The default export of the module is also there as a method called `.default()`. 
         * This is this way directly from NodeJS, not from this package; we just spit out what the ESM dynamic import gives us
 
-## Quick Start ⚡
-Install the package:
-```
-npm i --save-dev node-esm-hmr
-```
-
+## Getting Started ⚡
+### Hello World
 Create a package.json (if you don't already have one):
 ```
 npm init -y
 ```
 
+Install the `node-esm-hmr` package:
+```
+npm i --save-dev node-esm-hmr
+```
+
 Add `"type":"module"` to your `package.json`
 ```json
 {
-  "name": "node-esm-hmr",
+  "name": "Example app",
   "version": "1.0.0",
   "...":"...",
   
   "type": "module",
   
   "...":"...",
-  "dependencies": {
-    "...":"...",
-  }
 }
 ```
 
 Create a file called `foo.js` and add:
 ```javascript
+// foo.js
 import hmr from '../utils/node-esm-hmr.js';
 
 hmr('./bar.js', '.', module => {
@@ -137,6 +136,7 @@ hmr('./bar.js', '.', module => {
 ```
 Now make a file called bar.js:
 ```javascript
+// bar.js
 export default function(someArgument) {
   console.log('Hello world! ', someArgument)
 }
@@ -151,19 +151,31 @@ Hello world! this is a parameter that will be passed on to the default export of
 ```
 Now go back in and edit `bar.js`. Let's add a few more exclamation marks:
 ```javascript
+// bar.js
 export default function(someArgument) {
   console.log('Hello world!!!!!!!!!! ', someArgument)
 }
 ```
 Once you click save, you should see the change in the terminal! :tada:
+```
+Hello world! this is a parameter that will be passed on to the default export of bar.js
+Hello world!!!!!!!!!! this is a parameter that will be passed on to the default export of bar.js
+```
 
+:bulb: Pro tip: If you want to make the previous output clear from the console after each HMR reload, you can simply add a `console.clear` to your callback function:
+```javascript
+// foo.js
+hmr('./bar.js', '.', module => {
+  console.clear();
+  module.default('this is a parameter that will be passed on to the default export of bar.js')
+})
+```
 ## Disclaimer 
-Do not use this in production!! This package is intended to help you while developing in your dev enviroment. In order to get dynamic imports work multiple times (which is the whole basis of how this package works) I had to use a dirty strategy for invalidating node's import cache. This hasn't broken anything from what I can tell, but it also might break at scale and might cause other issues in the long run (like a gradual memory leak and eventual crash if you keep the process running for way too long). 
+**Do not use this in production!! This package is intended to help you while developing in your dev enviroment!**
+
+In order to get dynamic imports work multiple times (which is the whole basis of how this package works) I had to use a dirty strategy for invalidating node's import cache. This hasn't broken anything from what I can tell, but it also might break at scale and might cause other issues in the long run (like a gradual memory leak and eventual crash if you keep the process running for way too long). 
 
 Anyways, you should be perfectly fine running this while developing (worse case if it crashes or starts using too much memory just kill it `cntrl / cmd + C` and start it again, just don't don't use this for anything mission critical or produciton ready without testing this nuance first.
-
-## Todo
-- [ ] Create an optional ignore regex argument (really easy, just need to pass it to chokidar)
 
 ## Credits / Prior Art
 This package is 100% inspired by [node-hmr](https://github.com/serhiinkh/node-hmr). I decided to create this package when I first tried using node-hmr and realized that it doesn't work at all for ESM. Initially, I considered sending a PR, but I realized that ESM makes it pretty much nesicarry to rewrite most of it, and they also make it a lot simpler.
@@ -173,3 +185,6 @@ This package on it's doesn't really do much on it's own (it's really lightweight
 And, of course, thank you to [@Jasper De Moor](https://github.com/DeMoorJasper) who first explained to me what HMR was many years back while we were working on contributing to [Parcel](https://parceljs.org/) — the most amazing bundler on the planet. 
 
 This package is created and actively maintained by [David Nagli](https://www.linkedin.com/in/davidnagli/) and available under the [MIT License](https://github.com/davidnagli/node-esm-hmr/blob/main/LICENSE)
+
+## Todo
+- [ ] Create an optional ignore regex argument (really easy, just need to pass it to chokidar)
