@@ -1,6 +1,6 @@
 {
   "name": "node-esm-hmr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HMR for Node that actually works with Node's ESM (type:module in package.json or .mjs files)",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "esm-hmr",
     "esm-hot",
     "esm-reload",
-    "esm-hot-reload",
+    "esm-hot-reload"
   ],
   "author": "David Nagli <davidnagli@gmail.com>",
   "license": "MIT",
