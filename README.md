@@ -72,7 +72,7 @@ npm i --save-dev node-esm-hmr
 Then, in whatever file you want to run the HMR from, import this package as `hmr`:
 
 ```javascript
-import hmr from '../utils/node-esm-hmr.js';
+import hmr from 'node-esm-hmr';
 ```
 
 ### Usage :running:
@@ -147,7 +147,7 @@ Create a file called `foo.js` and add:
 
 ```javascript
 // foo.js
-import hmr from '../utils/node-esm-hmr.js';
+import hmr from 'node-esm-hmr';
 
 hmr('./bar.js', '.', (module) => {
   module.default(
