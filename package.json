@@ -1,6 +1,6 @@
 {
   "name": "node-esm-hmr",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "HMR for Node that actually works with Node's ESM (type:module in package.json or .mjs files)",
   "main": "index.js",
   "engines": {
@@ -49,6 +49,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "chalk": "^5.2.0",
     "chokidar": "^3.5.3",
     "parent-module": "^3.0.0"
   },
