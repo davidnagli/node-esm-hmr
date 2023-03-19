@@ -51,5 +51,9 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "parent-module": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "typescript": "^5.0.2"
   }
 }
