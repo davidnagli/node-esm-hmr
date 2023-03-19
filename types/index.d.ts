@@ -1,1 +1,1 @@
-export default function hmr(modulePath: string, watch : string | string[], callback: (module: ModuleNamespaceObject) => void): Promise<void>;
+export default function hmr(modulePath: string, watch : string | string[], callback: (module: ModuleNamespaceObject) => void): void;

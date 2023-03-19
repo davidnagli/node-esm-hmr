@@ -1,6 +1,6 @@
 {
   "name": "node-esm-hmr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "HMR for Node that actually works with Node's ESM (type:module in package.json or .mjs files)",
   "main": "index.js",
   "engines": {

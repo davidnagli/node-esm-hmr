@@ -96,7 +96,7 @@ hmr('./bar.js', '.', (module) => {
 ## API ⚙️
 
 ```javascript
-hmr(modulePath: String, watchPath: string | string[], callback: fn (module: ModuleNamespaceObject) => void)
+function hmr(modulePath: string, watch : string | string[], callback: (module: ModuleNamespaceObject) => void): void;
 
 ```
 
