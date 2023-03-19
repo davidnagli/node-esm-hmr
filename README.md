@@ -96,7 +96,7 @@ hmr('./bar.js', '.', (module) => {
 ## API ⚙️
 
 ```javascript
-function hmr(modulePath: string, watch : string | string[], callback: (module: ModuleNamespaceObject) => void): void;
+export default function hmr(modulePath: string, watch : string | string[], callback: (module: ModuleNamespaceObject) => void,  clearEveryTime: boolean): void;
 
 ```
 
@@ -112,6 +112,7 @@ function hmr(modulePath: string, watch : string | string[], callback: (module: M
    - This function get's called with a [Module Namespace Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import#module_namespace_object) as an argument.
      - This sounds confusing, but it's not. A Module Namespace Object is just an object with all of the exports of the module that you imported as methods of that object. The default export of the module is also there as a method called `.default()`.
      - This is this way directly from NodeJS, not from this package; we just spit out what the ESM dynamic import gives us
+4. `clearEveryTime` - A boolean that specifies whether or not to clear the console every time the file is changed. Defaults to `false`.
 
 ## Getting Started ⚡
 
